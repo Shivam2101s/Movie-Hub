@@ -1,12 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    Movie
-</body>
+  </head>
+  <style>
+      *{
+      
+        padding: 0;
+        box-sizing: border-box;
+      }
+      header {
+          width: 100%;
+          height: 200px;
+          background-color: black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 50px;
+          color: rgb(220, 32, 32);
+      }
+  
+    .container {
+      width: 90%;
+      min-height: 800px;
+      margin:50px auto;
+      text-align: center;
+    }
+
+    #movies {
+      width: 100%;
+      display: grid;
+      grid-template: "div div div div";
+      gap: 20px;
+    }
+    #movies > div {
+      border-radius: 5px;
+      background-color: rgb(179, 179, 179);
+      padding: 5px;
+      display: flex;
+      /* justify-content: center; */
+      /* align-items: center; */
+      flex-direction: column;
+    }
+  </style>
+  <body>
+      <header>
+        <h1>Movies Hub</h1>
+      </header>
+    <div class="container">
+  <h1>Trending This Week</h1>
+      <div id="movies"></div>
+    </div>
+  </body>
 </html>
+
+<script>
+  let movie_div = document.getElementById("movies");
+
+  async function fetchData() {
+    let res = await fetch(
+      "https://api.themoviedb.org/3/movie/popular?api_key=42215a72404eb60a26c9d8280ded4129"
+    );
+
+    let data = await res.json();
+
+    //console.log(data);
+
+    showMovies(data);
+  }
+  fetchData();
+
+  function showMovies(movies) {
+    console.log(movies.results);
+    let data = movies.results;
+    data.forEach(function (movie) {
+      let div = document.createElement("div");
+
+      let title = document.createElement("p");
+
+      title.style.fontWeight = 600;
+      
+
+      title.innerText = `Title : ${movie.title}`;
+
+
+      let rating = document.createElement("p");
+
+      rating.innerText = `IMDb : ${movie.vote_average}`;
+
+      let release = document.createElement("p");
+
+      release.innerText = `Released : ${movie.release_date}`;
+
+      let overview = document.createElement("p");
+
+      overview.innerText = `Overview : ${movie.overview}`;
+
+      div.append(title, rating, release, overview);
+      movie_div.append(div);
+    });
+  }
+</script>
