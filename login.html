@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Hub</title>
+    <link
+      rel="icon"
+      href="https://e7.pngegg.com/pngimages/920/2/png-clipart-graphic-film-cinema-movie-projector-hollywood-claquete-television-photography-thumbnail.png"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        color: white;
+      }
+      body {
+        background-color: rgb(30, 55, 99);
+      }
+      #login-form {
+        width: 500px;
+        padding-bottom: 30px;
+        margin: 100px auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(46, 66, 113);
+      }
+      h1 {
+        width: 100%;
+        height: 60px;
+        background-color: rgb(7, 24, 66);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+        color: white;
+        margin-bottom: 40px;
+      }
+
+      input {
+        width: 300px;
+        height: 40px;
+        border-radius: 5px;
+        border: none;
+        padding: 5px;
+        outline: none;
+        margin-top: 10px;
+        color: black;
+      }
+      p {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div id="login">
+        <form id="login-form" onsubmit="login(event)">
+          <h1>log In</h1>
+
+          <input type="text" id="user" placeholder="Username" />
+          <input type="password" id="pass" placeholder="Password" />
+
+          <input type="submit" />
+          <p>New user <a href="./signUp.html">Sign Up</a></p>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  function login(e) {
+    e.preventDefault();
+
+    let form = document.getElementById("login-form");
+
+    let user_data = {
+      username: form.user.value,
+
+      password: form.pass.value,
+    };
+
+    let data_to_send = JSON.stringify(user_data);
+
+    fetch("https://masai-api-mocker.herokuapp.com/auth/login", {
+      method: "POST",
+
+      body: data_to_send,
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log("res:", res);
+
+        fetchData(user_data.username, res.token);
+        goToHome();
+      })
+      .catch((err) => {
+        console.log("err:", err);
+        alert(res.message);
+      });
+  }
+
+  function fetchData(username, token) {
+    fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log("res:", res);
+        goToHome();
+        alert("Welcome " + res.name + " to Movie Hub");
+       
+      })
+      .catch((err) => {
+        console.log("err:", err);
+      });
+  }
+
+  function goToHome() {
+  window.location.assign("./index.html");
+}
+</script>
