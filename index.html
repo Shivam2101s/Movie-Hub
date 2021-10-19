@@ -5,7 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies Hub</title>
-    <link rel="icon" href="https://e7.pngegg.com/pngimages/920/2/png-clipart-graphic-film-cinema-movie-projector-hollywood-claquete-television-photography-thumbnail.png">
+    <link
+      rel="icon"
+      href="https://e7.pngegg.com/pngimages/920/2/png-clipart-graphic-film-cinema-movie-projector-hollywood-claquete-television-photography-thumbnail.png"
+    />
   </head>
   <style>
     * {
@@ -92,7 +95,7 @@
     #description > :nth-child(2) {
       display: flex;
       flex-direction: column;
-     text-align: left;
+      text-align: left;
       gap: 20px;
       margin-left: 30px;
       padding: 20px;
@@ -128,11 +131,13 @@
     }
     .tags {
       float: right;
-      margin:20px;
+      margin: 20px;
       display: flex;
-      gap:30px 
+      gap: 30px;
     }
-    
+    button {
+      color: black;
+    }
   </style>
   <body>
     <header>
@@ -142,7 +147,7 @@
       <a href="./signUp.html">Sign Up</a>
       <a href="./login.html">Log In</a>
     </div>
-    
+
     <div class="container">
       <input
         id="searchBar"
@@ -163,7 +168,16 @@
 
 <script>
   let movies_div = document.getElementById("search");
+  let x = document.querySelector(".tags");
+  let isLoggeed = JSON.parse(localStorage.getItem('isLoggedIn'))
+  if(isLoggeed){
+    x.innerHTML = `<button id="logout">Log Out</button>`
+  }
 
+  let logOutBtn = document.getElementById('logout');
+  logOutBtn.addEventListener('click', () => {
+    localStorage.setItem('isLoggedIn',false)
+  })
   let description_div = document.getElementById("description");
   description_div.style.display = "none";
 
@@ -232,7 +246,6 @@
     name.style.fontWeight = 600;
     name.innerText = `Title : ${movie.Title}`;
 
-
     let release = document.createElement("p");
 
     release.innerText = `Year : ${movie.Year}`;
@@ -240,14 +253,14 @@
     let type = document.createElement("p");
 
     type.innerText = `Type : ${movie.Type}`;
-    
+
     let rating = document.createElement("p");
 
     rating.innerText = `IMDb : ${movie.imdbID}`;
 
     div1.append(img);
 
-    div2.append(name, release,type, rating);
+    div2.append(name, release, type, rating);
 
     description_div.append(div1, div2);
   }

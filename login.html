@@ -62,8 +62,8 @@
         <form id="login-form" onsubmit="login(event)">
           <h1>log In</h1>
 
-          <input type="text" id="user" placeholder="Username" />
-          <input type="password" id="pass" placeholder="Password" />
+          <input type="text" id="user" placeholder="Username" required/>
+          <input type="password" id="pass" placeholder="Password" required/>
 
           <input type="submit" />
           <p>New user <a href="./signUp.html">Sign Up</a></p>
@@ -101,14 +101,19 @@
       })
       .then((res) => {
         console.log("res:", res);
+        if(res.error){
+          alert(res.message)
+        }else{
+          fetchData(user_data.username, res.token);
+        }
+       
 
-        fetchData(user_data.username, res.token);
-        goToHome();
+        
       })
       .catch((err) => {
         console.log("err:", err);
-        alert(res.message);
       });
+
   }
 
   function fetchData(username, token) {
@@ -123,16 +128,21 @@
       })
       .then((res) => {
         console.log("res:", res);
+        localStorage.setItem('userDetail',JSON.stringify(res))
+        localStorage.setItem('isLoggedIn',true)
+
         goToHome();
-        alert("Welcome " + res.name + " to Movie Hub");
-       
       })
+
       .catch((err) => {
         console.log("err:", err);
+            
       });
   }
 
   function goToHome() {
+    
   window.location.assign("./index.html");
-}
+
+  }
 </script>
