@@ -172,6 +172,9 @@
   let isLoggeed = JSON.parse(localStorage.getItem('isLoggedIn'))
   if(isLoggeed){
     x.innerHTML = `<button id="logout">Log Out</button>`
+  }else {
+    x.innerHTML = `<a href="./signUp.html">Sign Up</a>
+      <a href="./login.html">Log In</a>`
   }
 
   let logOutBtn = document.getElementById('logout');
