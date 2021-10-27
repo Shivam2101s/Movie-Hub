@@ -2,7 +2,7 @@
 
 
 ## This website is hosted on Netlify
-Link to visit site:- 
+Link to visit site:- https://movie-hub98.netlify.app
 
 ## Some glimpse of the project
 <img src="https://imgdb.in/ja0z.jpg" width="100%" height="auto" />
