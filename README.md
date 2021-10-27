@@ -1,4 +1,4 @@
-# Movie-App
+# Movie-Hub
 
 
 ## This website is hosted on Netlify
