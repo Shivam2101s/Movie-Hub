@@ -16,7 +16,7 @@ Link to visit site:-
 
 ## Functionality
 * Sign In, Sign Up
-* Search Menu
+* Search bar
 * Popular Movies
 
 ## Contributed by
