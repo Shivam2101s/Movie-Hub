@@ -1,5 +1,6 @@
 # Movie-Hub
 
+It's a movie website, where users can search for movies and also see popular movies.
 
 ## This website is hosted on Netlify
 Link to visit site:- https://movie-hub98.netlify.app
